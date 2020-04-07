@@ -25,7 +25,7 @@ def range100():
     print ("New game. " + str(range))
     print ("Number of remaining guesses is " + str(remaining_guesses))
     print ("")
-    
+    new_game()
 
 def range1000():
     # button that changes the range to [0,1000) and starts a new game     
@@ -40,33 +40,34 @@ def range1000():
     print ("New game. " + str(range))
     print ("Number of remaining guesses is " + str(remaining_guesses))
     print ("")
-    
+    new_game()
+
 def input_guess(guess):
     # main game logic goes here
     guess_out = int(guess)
     global remaining_guesses
     print ("Guess was " + str(guess_out))
-    if remaining_guesses <= 0: 
+    if remaining_guesses <= 1: 
+        remaining_guesses -= 1
         print ("You ran out of guesses, the number was " + str(secret_number))
         print("")
         new_game()
-    elif remaining_guesses > 0:
-        if guess_out < secret_number:
-            remaining_guesses -= 1
-            print ("Number of remaining guesses is " + str(remaining_guesses))
-            print ("Higher")
-            print("")
-        elif guess_out > secret_number:
-            remaining_guesses -= 1
-            print ("Number of remaining guesses is " + str(remaining_guesses))
-            print ("Lower")
-            print("")
-        elif guess_out == secret_number:
-            remaining_guesses -= 1
-            print ("Number of remaining guesses is " + str(remaining_guesses))
-            print ("Correct")
-            print("")
-    new_game()
+    elif guess_out < secret_number:
+        remaining_guesses -= 1
+        print ("Number of remaining guesses is " + str(remaining_guesses))
+        print ("Higher")
+        print("")
+    elif guess_out > secret_number:
+        remaining_guesses -= 1
+        print ("Number of remaining guesses is " + str(remaining_guesses))
+        print ("Lower!")
+        print("")
+    elif guess_out == secret_number:
+        remaining_guesses -= 1
+        print ("Number of remaining guesses is " + str(remaining_guesses))
+        print ("Correct!")
+        print("")
+        new_game()
                
     
     
@@ -81,7 +82,7 @@ def input_guess(guess):
 new_game()
 #frame.start()
 # call new_game 
-new_game()
+
 
 
 # always remember to check your completed program against the grading rubric 
