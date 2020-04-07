@@ -9,7 +9,7 @@ def new_game():
     # initialize global variables used in your code here
     global secret_number
     global total_guesses
-    
+    global num_range
 
 # define event handlers for control panel
 def range100():
@@ -18,10 +18,12 @@ def range100():
     global total_guesses
     global remaining_guesses
     global range
+    global num_range
     total_guesses = 7
     remaining_guesses = total_guesses
     range = "Range is [0,100)"
     secret_number = random.randrange(0,100)
+    num_range = secret_number 
     print ("New game. " + str(range))
     print ("Number of remaining guesses is " + str(remaining_guesses))
     print ("")
@@ -33,10 +35,12 @@ def range1000():
     global total_guesses
     global remaining_guesses
     global range
+    global num_range
     total_guesses = 10
     remaining_guesses = total_guesses
     range = "Range is [0,1000)"
     secret_number = random.randrange(0,1000)
+    num_range = secret_number 
     print ("New game. " + str(range))
     print ("Number of remaining guesses is " + str(remaining_guesses))
     print ("")
@@ -47,15 +51,16 @@ def input_guess(guess):
     guess_out = int(guess)
     global remaining_guesses
     print ("Guess was " + str(guess_out))
-    if remaining_guesses <= 1: 
+    if remaining_guesses < 1: 
         remaining_guesses -= 1
+        print ("Number of remaining guesses is " + str(remaining_guesses))
         print ("You ran out of guesses, the number was " + str(secret_number))
         print("")
         new_game()
     elif guess_out < secret_number:
         remaining_guesses -= 1
         print ("Number of remaining guesses is " + str(remaining_guesses))
-        print ("Higher")
+        print ("Higher!")
         print("")
     elif guess_out > secret_number:
         remaining_guesses -= 1
