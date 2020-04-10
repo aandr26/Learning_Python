@@ -13,3 +13,7 @@ Includes project files from Coursera An Introduction to Interactive Programming 
   * **B**uilt-in: In the special bultins module
 
 Names are looked up in the narrowest relevant context.
+
+* Notes:
+  * Dunder = Double Underline
+    * Used in naming.

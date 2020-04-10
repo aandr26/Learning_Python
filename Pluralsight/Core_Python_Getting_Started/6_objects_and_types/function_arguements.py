@@ -54,6 +54,6 @@ def add_spam(menu=None):
     return menu
 
 add_spam()
-add_spam()
+add_spam()dir()
 add_spam()
 add_spam()
