@@ -17,3 +17,6 @@ Names are looked up in the narrowest relevant context.
 * Notes:
   * Dunder = Double Underline
     * Used in naming.
+
+* Tuple vs Lists:
+  * Tuple immutable

@@ -16,3 +16,15 @@
 # This is a comment
 
 ```
+
+**Event-driven drawing:**
+
+* Computer monitor - 2D grid of pixels stored in frame buffer.
+* Computers update the monitor based on the frame buffer at rate of around 60-72 times a second - refresh rate.
+* Many applications will register a special function called a "draw handler".
+
+**CodeSkulptor:**
+
+1. Register the draw handler using a simpleGUI commands.
+2. Call the draw handler at around 60 times per second.
+3. Draw handler updates the canvas using a collection of draw commands that include draw_text, draw_line, draw_circle.
