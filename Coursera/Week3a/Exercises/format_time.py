@@ -6,12 +6,12 @@
 
 def format_time(number):
     minutes = number // 60
-    print ("These are the minutes: " + str(minutes))
     print ("This is the number: " + str(number))
-    print ("")
+    print ("These are the minutes: " + str(minutes))
     seconds = number % 60
-    print (minutes + seconds)
-
+    print ("These are the seconds: " + str(seconds))
+    print (str(minutes) + " minutes and " + str(seconds) + " seconds.")
+    print ("")
 ###################################################
 # Tests
 
