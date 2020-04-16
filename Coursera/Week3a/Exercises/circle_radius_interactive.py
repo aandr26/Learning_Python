@@ -14,19 +14,21 @@ ball_radius = 20
 
 # Draw handler
 def draw(canvas):
-    canvas.draw_circle([100, 100], ball_radius, 2, "Red")
+    global HEIGHT
+    global WIDTH 
+    canvas.draw_circle([WIDTH/2, HEIGHT/2], ball_radius, 2, "Red")
 
 # Event handlers for buttons
 def increase_radius():
     global RADIUS_INCREMENT
     global ball_radius
-    ball_radius + RADIUS_INCREMENT
+    ball_radius += RADIUS_INCREMENT
     return ball_radius
 
 def decrease_radius():
     global RADIUS_INCREMENT
     global ball_radius
-    ball_radius - RADIUS_INCREMENT
+    ball_radius -= RADIUS_INCREMENT
     return ball_radius
     
 # Create frame and assign callbacks to event handlers
