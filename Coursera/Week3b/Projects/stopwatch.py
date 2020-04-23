@@ -31,6 +31,7 @@ def format(t):
     
 # define event handlers for buttons; "Start", "Stop", "Reset"
 def start():
+    ''' Starts the game '''
     global counter
     global increment
     global click
@@ -40,6 +41,10 @@ def start():
     timer.start()
 
 def stop():
+    ''' Stops the timer, and increments the total_guesses by 1. 
+    If timer is stopped on an even second, 
+    correct_guesses is also incremented by 1
+    '''
     global counter
     global increment
     global click
@@ -49,16 +54,21 @@ def stop():
     timer.stop()
     if click:
         click = False
-        total_guesses += 1
+        # Prevents total_guesses from incrementing if timer is not running.
+        if not increment:
+            total_guesses += 1
     if (counter > 0) and ((counter % 10) == 0):
         correct_guesses += 1
     
 
 def reset():
+    ''' Resets all counters in the game. '''
     global counter
-    global total_guesses
     global correct_guesses
+    global total_guesses
     counter = 0
+    correct_guesses = 0
+    total_guesses = 0
     tick()
 
 # define event handler for timer with 0.1 sec interval
