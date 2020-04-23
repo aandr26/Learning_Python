@@ -20,13 +20,9 @@ def format(t):
     D = remaining tens of seconds.  
     A:BC:D '''
     A = ((t // 10) // 60)
-    #print ("This is A " + str(A))
     B = (((t // 10) % 60) // 10)
-    #print ("This is B " + str(B))
     C = (((t // 10) % 60) % 10)
-    #print ("This is C " + str(C))
     D = ((t // 1) % 60) % 10
-    #print ("This is D " + str(D))
     return (str(A) + ":" + str(B) + str(C)+ "." + str(D))
     
 # define event handlers for buttons; "Start", "Stop", "Reset"
@@ -57,7 +53,7 @@ def stop():
         # Prevents total_guesses from incrementing if timer is not running.
         if not increment:
             total_guesses += 1
-    if (counter > 0) and ((counter % 10) == 0):
+    if not increment and (counter > 0) and ((counter % 10) == 0):
         correct_guesses += 1
     
 
