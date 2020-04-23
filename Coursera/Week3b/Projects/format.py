@@ -5,14 +5,18 @@
     
 def format(t):
     ''' A = minutes, B = tens of seconds, C = seconds > tens of seconds
-    D = remaining tens of seconds.  '''
-    A = (t / 10) // 60
-    print (A)
-    B = t // 10
-    print (B)
-    C = B // 10
-    D = C // 10
-    return t
+    D = remaining tens of seconds.  
+    A:BC:D
+    '''
+    A = ((t // 10) // 60)
+    #print ("This is A " + str(A))
+    B = (((t // 10) % 60) // 10)
+    #print ("This is B " + str(B))
+    C = (((t // 10) % 60) % 10)
+    #print ("This is C " + str(C))
+    D = ((t // 1) % 60) % 10
+    #print ("This is D " + str(D))
+    return (str(A) + ":" + str(B) + str(C)+ "." + str(D))
 
 
 ###################################################
@@ -21,19 +25,19 @@ def format(t):
 # six characters
 
 
-#print (format(0))
-#print (format(7))
-#print (format(17))
-format(60)
-format(63)
-#print (format(214))
-#print (format(599))
-#print (format(600))
-#print (format(602))
-#print (format(667))
-#print (format(1325))
-#print (format(4567))
-#print (format(5999))
+print (format(0))
+print (format(7))
+print (format(17))
+print (format(60))
+print (format(63))
+print (format(214))
+print (format(599))
+print (format(600))
+print (format(602))
+print (format(667))
+print (format(1325))
+print (format(4567))
+print (format(5999))
 
 ###################################################
 # Output from test
