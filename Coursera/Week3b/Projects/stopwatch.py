@@ -53,8 +53,8 @@ def stop():
         # Prevents total_guesses from incrementing if timer is not running.
         if not increment:
             total_guesses += 1
-    if not increment and (counter > 0) and ((counter % 10) == 0):
-        correct_guesses += 1
+        if (counter > 0) and ((counter % 10) == 0):
+            correct_guesses += 1
     
 
 def reset():
