@@ -12,7 +12,6 @@ click = False
 total_guesses = 0
 correct_guesses = 0
 
-
 # define helper function format that converts time
 # in tenths of seconds into formatted string A:BC.D
 def format(t):
@@ -56,7 +55,6 @@ def stop():
         if (counter > 0) and ((counter % 10) == 0):
             correct_guesses += 1
     
-
 def reset():
     ''' Resets all counters in the game. '''
     global counter
@@ -76,8 +74,7 @@ def tick():
         counter += 1
     elif increment == False:
         stop()
-    
-    
+     
 # define draw handler
 def draw(canvas):
     global counter
@@ -86,7 +83,6 @@ def draw(canvas):
     
 # create frame
 frame = simplegui.create_frame("Stopwatch", WIDTH, HEIGHT)
-
 
 # register event handlers
 frame.add_button("Start", start, 100)
