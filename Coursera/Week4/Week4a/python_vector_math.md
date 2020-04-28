@@ -62,7 +62,7 @@ p[1] = q[1] + a * v[1]
 p[0] = q[0] + a * v[0]
 p[1] = q[1] + a * v[1]
 
-''' Collision of ball with center (p) and radius (r) with wall '''
+''' Collision of ball with position (p) and radius (r) with wall '''
 # Left wall
 p[0] <= r
 
