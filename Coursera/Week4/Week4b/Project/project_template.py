@@ -55,13 +55,33 @@ def draw(canvas):
     ball_pos[1] += ball_vel[1]
     
     # collide and reflect off of left hand side of canvas
-    if ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS):
-        ball_vel[0] = - ball_vel[0]
+    if (ball_pos[0] == (PAD_WIDTH + BALL_RADIUS)):
+        print("Horizontal position on left " + str(ball_pos[0]))
+        print("Left paddle position " + str(paddle1_pos))
+        print("")
+        if (ball_pos[1] > (paddle1_pos - HALF_PAD_HEIGHT)):
+            print("Vertical position on left " + str(ball_pos[1]))
+            print("Left paddle position " + str(paddle1_pos))
+            print("")
+            if (ball_pos[1] < (paddle1_pos + HALF_PAD_HEIGHT)):
+                ball_vel[0] = - ball_vel[0]
+    
+    elif (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)):
         spawn_ball(RIGHT)
-        
+      
     # collide and reflect off of right hand side of canvas
-    if ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS:
-        ball_vel[0] = - ball_vel[0]
+    if (ball_pos[0] == (WIDTH - PAD_WIDTH) - BALL_RADIUS):
+        print("Horizontal position on left " + str(ball_pos[0]))
+        print("Left paddle position " + str(paddle2_pos))
+        print("")
+        if (ball_pos[1] > (paddle2_pos - HALF_PAD_HEIGHT)):
+            print("Vertical position on left " + str(ball_pos[1]))
+            print("Left paddle position " + str(paddle2_pos))
+            print("")
+            if (ball_pos[1] < (paddle2_pos + HALF_PAD_HEIGHT)):
+                ball_vel[0] = - ball_vel[0]
+    
+    elif (ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS):    
         spawn_ball(LEFT)
 
     # collide and reflect off of top of canvas
@@ -119,7 +139,6 @@ def keydown(key):
         paddle2_vel += 2
     
     
-
 def keyup(key):
     global paddle1_vel, paddle2_vel
     if key == simplegui.KEY_MAP["up"]:
