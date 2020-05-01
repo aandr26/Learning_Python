@@ -15,7 +15,7 @@ LEFT = False
 RIGHT = True
 
 ball_pos = [WIDTH / 2, HEIGHT / 2]
-ball_vel = [4, 4]
+ball_vel = [2, 2]
 
 paddle1_pos = 150
 paddle2_pos = 150
@@ -55,33 +55,39 @@ def draw(canvas):
     ball_pos[1] += ball_vel[1]
     
     # collide and reflect off of left hand side of canvas
-    if (ball_pos[0] == (PAD_WIDTH + BALL_RADIUS)):
-        print("Horizontal position on left " + str(ball_pos[0]))
-        print("Left paddle position " + str(paddle1_pos))
-        print("")
-        if (ball_pos[1] > (paddle1_pos - HALF_PAD_HEIGHT)):
-            print("Vertical position on left " + str(ball_pos[1]))
-            print("Left paddle position " + str(paddle1_pos))
+    if (ball_pos[1] >= (paddle1_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle1_pos + HALF_PAD_HEIGHT)):
+        print (True)
+        if (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)): 
+            print (True)
+            print("Left paddle position is " + str(paddle1_pos))
+            print("Ball position is " + str(ball_pos[0]) + " x and " + str(ball_pos[1]) + " y")
+            print("It Hit!")
             print("")
-            if (ball_pos[1] < (paddle1_pos + HALF_PAD_HEIGHT)):
-                ball_vel[0] = - ball_vel[0]
-    
+            ball_vel[0] = - ball_vel[0]
+                 
     elif (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)):
+        print("Left paddle position " + str(paddle1_pos))
+        print("Ball position is " + str(ball_pos[0]) + " x and " + str(ball_pos[1]) + " y")
+        print("It Missed!")
+        print("")
         spawn_ball(RIGHT)
       
     # collide and reflect off of right hand side of canvas
-    if (ball_pos[0] == (WIDTH - PAD_WIDTH) - BALL_RADIUS):
-        print("Horizontal position on left " + str(ball_pos[0]))
-        print("Left paddle position " + str(paddle2_pos))
-        print("")
-        if (ball_pos[1] > (paddle2_pos - HALF_PAD_HEIGHT)):
-            print("Vertical position on left " + str(ball_pos[1]))
-            print("Left paddle position " + str(paddle2_pos))
+    if (ball_pos[1] >= (paddle2_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle2_pos + HALF_PAD_HEIGHT)):
+        print (True)
+        if (ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS):           
+            print (True)
+            print("Right paddle position " + str(paddle2_pos))
+            print("Ball position is " + str(ball_pos[0]) + " x and " + str(ball_pos[1]) + " y")
+            print("It Hit!")
             print("")
-            if (ball_pos[1] < (paddle2_pos + HALF_PAD_HEIGHT)):
-                ball_vel[0] = - ball_vel[0]
+            ball_vel[0] = - ball_vel[0]
     
     elif (ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS):    
+        print("Right paddle position " + str(paddle2_pos))
+        print("Ball position is " + str(ball_pos[0]) + " x and " + str(ball_pos[1]) + " y")
+        print("It Missed!")
+        print("")
         spawn_ball(LEFT)
 
     # collide and reflect off of top of canvas
@@ -99,7 +105,7 @@ def draw(canvas):
     paddle1_pos += paddle1_vel
     paddle2_pos += paddle2_vel
     
-    # keep paddle 1 - right paddle - on screen
+    # keep paddle 1 - left paddle - on screen
     if paddle1_pos <= 1:
         paddle1_pos = 0
     if paddle1_pos >= (400 - PAD_HEIGHT):
@@ -113,11 +119,11 @@ def draw(canvas):
         
     # draw paddles
     
-    # paddle 2 - right paddle
-    canvas.draw_polygon([(PAD_WIDTH - 4, paddle1_pos),(4, PAD_HEIGHT + paddle1_pos)], 8, "White")
+    # paddle 1 - left paddle
+    canvas.draw_polygon([(PAD_WIDTH - PAD_WIDTH/2, paddle1_pos),(PAD_WIDTH/2, PAD_HEIGHT + paddle1_pos)], 8, "White")
     
     # paddle 2 - right paddle
-    canvas.draw_polygon([(WIDTH - PAD_WIDTH + 4, paddle2_pos),(WIDTH - PAD_WIDTH + 4, PAD_HEIGHT + paddle2_pos)], 8, "White")
+    canvas.draw_polygon([(WIDTH - PAD_WIDTH + PAD_WIDTH/2, paddle2_pos),(WIDTH - PAD_WIDTH + PAD_WIDTH/2, PAD_HEIGHT + paddle2_pos)], 8, "White")
     
     # determine whether paddle and ball collide    
     
@@ -128,15 +134,15 @@ def keydown(key):
     
     # paddle 1 - left paddle
     if key == simplegui.KEY_MAP["w"]:
-        paddle1_vel -= 2
+        paddle1_vel -= 4
     if key == simplegui.KEY_MAP["s"]:
-        paddle1_vel += 2
+        paddle1_vel += 4
         
     # paddle 2 - right paddle
     if key == simplegui.KEY_MAP["up"]:
-        paddle2_vel -= 2
+        paddle2_vel -= 4
     if key == simplegui.KEY_MAP["down"]:
-        paddle2_vel += 2
+        paddle2_vel += 4
     
     
 def keyup(key):
