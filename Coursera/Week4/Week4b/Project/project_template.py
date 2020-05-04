@@ -15,7 +15,7 @@ LEFT = False
 RIGHT = True
 
 ball_pos = [WIDTH / 2, HEIGHT / 2]
-ball_vel = [2, 2]
+ball_vel = [1, 1]
 
 paddle1_pos = 150
 paddle2_pos = 150
@@ -48,55 +48,46 @@ def draw(canvas):
     # left gutter line
     canvas.draw_line([PAD_WIDTH, 0],[PAD_WIDTH, HEIGHT], 1, "White")
     # right gutter line
-    canvas.draw_line([WIDTH - PAD_WIDTH, 0],[WIDTH - PAD_WIDTH, HEIGHT], 1, "White")
+    canvas.draw_line([WIDTH - PAD_WIDTH, 0],[WIDTH - PAD_WIDTH, HEIGHT], 1, "White")   
         
-    # update ball
-    ball_pos[0] += ball_vel[0]
-    ball_pos[1] += ball_vel[1]
+    # update ball  
     
     # collide and reflect off of left hand side of canvas
-    if (ball_pos[1] >= (paddle1_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle1_pos + HALF_PAD_HEIGHT)):
-        print (True)
-        if (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)): 
-            print (True)
-            print("Left paddle position is " + str(paddle1_pos))
-            print("Ball position is " + str(ball_pos[0]) + " x and " + str(ball_pos[1]) + " y")
-            print("It Hit!")
-            print("")
+    if (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)):
+        print (str(True) + "1L")
+        if (ball_pos[1] >= (paddle1_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle1_pos + HALF_PAD_HEIGHT)):
+            print (str(True) + "2L")
             ball_vel[0] = - ball_vel[0]
-                 
-    elif (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)):
-        print("Left paddle position " + str(paddle1_pos))
-        print("Ball position is " + str(ball_pos[0]) + " x and " + str(ball_pos[1]) + " y")
-        print("It Missed!")
-        print("")
-        spawn_ball(RIGHT)
-      
+        else:
+            print (str(False) + "2L")
+            spawn_ball(RIGHT)           
+    else:
+        print (str(False) + "1L and 2L")
+        ball_pos[1] += ball_vel[1]
+        ball_pos[0] += ball_vel[0]
+        
     # collide and reflect off of right hand side of canvas
-    if (ball_pos[1] >= (paddle2_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle2_pos + HALF_PAD_HEIGHT)):
-        print (True)
-        if (ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS):           
-            print (True)
-            print("Right paddle position " + str(paddle2_pos))
-            print("Ball position is " + str(ball_pos[0]) + " x and " + str(ball_pos[1]) + " y")
-            print("It Hit!")
-            print("")
+    if (ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS):
+        print (str(True) + "1R")  
+        if (ball_pos[1] >= (paddle2_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle2_pos + HALF_PAD_HEIGHT)):     
+            print (str(True) + "2R")
             ball_vel[0] = - ball_vel[0]
-    
-    elif (ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS):    
-        print("Right paddle position " + str(paddle2_pos))
-        print("Ball position is " + str(ball_pos[0]) + " x and " + str(ball_pos[1]) + " y")
-        print("It Missed!")
-        print("")
-        spawn_ball(LEFT)
-
+        else:
+            print (str(False) + "2R")    
+            spawn_ball(LEFT)
+    else:
+        print (str(False) + "1R and 2R")
+        ball_pos[1] += ball_vel[1]
+        ball_pos[0] += ball_vel[0]
+            
     # collide and reflect off of top of canvas
     if ball_pos[1] <= BALL_RADIUS:
         ball_vel[1] = - ball_vel[1]
 
     # collide and reflect off of bottom of canvas
-    if ball_pos[1] >= HEIGHT - BALL_RADIUS:
+    elif ball_pos[1] >= HEIGHT - BALL_RADIUS:
         ball_vel[1] = - ball_vel[1]
+    
 
     # draw ball
     canvas.draw_circle(ball_pos, BALL_RADIUS, 2, "Red", "White")
@@ -134,15 +125,15 @@ def keydown(key):
     
     # paddle 1 - left paddle
     if key == simplegui.KEY_MAP["w"]:
-        paddle1_vel -= 4
+        paddle1_vel -= 6
     if key == simplegui.KEY_MAP["s"]:
-        paddle1_vel += 4
+        paddle1_vel += 6
         
     # paddle 2 - right paddle
     if key == simplegui.KEY_MAP["up"]:
-        paddle2_vel -= 4
+        paddle2_vel -= 6
     if key == simplegui.KEY_MAP["down"]:
-        paddle2_vel += 4
+        paddle2_vel += 6
     
     
 def keyup(key):
