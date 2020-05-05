@@ -13,34 +13,42 @@ HALF_PAD_WIDTH = PAD_WIDTH / 2
 HALF_PAD_HEIGHT = PAD_HEIGHT / 2
 LEFT = False
 RIGHT = True
-
+SCORE_SIZE = 50
 ball_pos = [WIDTH / 2, HEIGHT / 2]
 ball_vel = [1, 1]
-
 paddle1_pos = 150
 paddle2_pos = 150
-
 paddle1_vel = 0
 paddle2_vel = 0
+score1 = 0
+score2 = 0
 
 # initialize ball_pos and ball_vel for new bal in middle of table
 # if direction is RIGHT, the ball's velocity is upper right, else upper left
 def spawn_ball(direction):
+    ''' This function starts the initial movement of the ball in the game,
+    by randomly assigning a velocity to the ball '''
     global ball_pos, ball_vel # these are vectors stored as lists
     ball_pos = [WIDTH / 2, HEIGHT / 2]
     ball_vel = [1,1]
     if direction == RIGHT:
         ball_vel= [random.randrange(120, 240)/60, random.randrange(-180, -60)/60]
     if direction == LEFT:
-        ball_vel = [random.randrange(-240, -120)/60, random.randrange(60, 180)/60]
-        
+        ball_vel = [random.randrange(-240, -120)/60, random.randrange(60, 180)/60]       
+
 # define event handlers
 def new_game():
+    ''' Starts a new game, and resets everything '''
     global paddle1_pos, paddle2_pos, paddle1_vel, paddle2_vel  # these are numbers
     global score1, score2  # these are ints
+    score1 = 0
+    score2 = 0
     spawn_ball(LEFT)
 
+# draw the game
 def draw(canvas):
+    ''' This function draws all the required simplegui canvas objects, 
+    and contians the logic for reflecting the ball of the walls and paddles and scoring. '''
     global score1, score2, paddle1_pos, paddle2_pos, ball_pos, ball_vel
     
     # draw mid line and gutters
@@ -54,29 +62,28 @@ def draw(canvas):
     
     # collide and reflect off of left hand side of canvas
     if (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)):
-        print (str(True) + "1L")
         if (ball_pos[1] >= (paddle1_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle1_pos + HALF_PAD_HEIGHT)):
-            print (str(True) + "2L")
+            ball_vel[1] += .10
+            ball_vel[0] += .10
             ball_vel[0] = - ball_vel[0]
+            
         else:
-            print (str(False) + "2L")
+            score2 += 1
             spawn_ball(RIGHT)           
     else:
-        print (str(False) + "1L and 2L")
         ball_pos[1] += ball_vel[1]
         ball_pos[0] += ball_vel[0]
         
     # collide and reflect off of right hand side of canvas
     if (ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS):
-        print (str(True) + "1R")  
         if (ball_pos[1] >= (paddle2_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle2_pos + HALF_PAD_HEIGHT)):     
-            print (str(True) + "2R")
+            ball_vel[1] += .10
+            ball_vel[0] += .10
             ball_vel[0] = - ball_vel[0]
         else:
-            print (str(False) + "2R")    
+            score1 += 1 
             spawn_ball(LEFT)
     else:
-        print (str(False) + "1R and 2R")
         ball_pos[1] += ball_vel[1]
         ball_pos[0] += ball_vel[0]
             
@@ -119,10 +126,14 @@ def draw(canvas):
     # determine whether paddle and ball collide    
     
     # draw scores
-        
+    canvas.draw_text(str(score1), [WIDTH/2 - SCORE_SIZE, HEIGHT/8], SCORE_SIZE, "White")
+    canvas.draw_text(str(score2), [WIDTH/2 + SCORE_SIZE/2, HEIGHT/8], SCORE_SIZE, "White")
+
+# control the game: movement     
 def keydown(key):
+    ''' This function captures the pressing of the keys 'w','s','up', and 'down' on the keyboard 
+    and moves paddles based on the key pressed '''
     global paddle1_vel, paddle2_vel
-    
     # paddle 1 - left paddle
     if key == simplegui.KEY_MAP["w"]:
         paddle1_vel -= 6
@@ -134,9 +145,11 @@ def keydown(key):
         paddle2_vel -= 6
     if key == simplegui.KEY_MAP["down"]:
         paddle2_vel += 6
-    
-    
+
+# control the game: stop movement
 def keyup(key):
+    ''' This function captures the releasing of the keys 'w','s','up', and 'down' on the keyboard 
+    and stops the movement of the paddles based on the key released '''
     global paddle1_vel, paddle2_vel
     if key == simplegui.KEY_MAP["up"]:
         paddle2_vel = 0
@@ -152,7 +165,7 @@ frame = simplegui.create_frame("Pong", WIDTH, HEIGHT)
 frame.set_draw_handler(draw)
 frame.set_keydown_handler(keydown)
 frame.set_keyup_handler(keyup)
-
+restart = frame.add_button("Restart Game", new_game, 75)
 
 # start frame
 new_game()
