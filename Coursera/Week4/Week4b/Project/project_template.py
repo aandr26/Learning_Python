@@ -59,34 +59,48 @@ def draw(canvas):
     canvas.draw_line([WIDTH - PAD_WIDTH, 0],[WIDTH - PAD_WIDTH, HEIGHT], 1, "White")   
         
     # update ball  
-    
+    if (
+        (ball_pos[0] <= (WIDTH - PAD_WIDTH) - BALL_RADIUS) or
+        (ball_pos[0] >= (PAD_WIDTH + BALL_RADIUS)) or
+        (ball_pos[1] <= BALL_RADIUS) or
+        (ball_pos[1] >= HEIGHT - BALL_RADIUS)
+    ):
+        ball_pos[1] += ball_vel[1]
+        ball_pos[0] += ball_vel[0]   
+
     # collide and reflect off of left hand side of canvas
-    if (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)):
+    elif (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)):
+        print("I hit the left side")
+        print(str(ball_pos[1]))
         if (ball_pos[1] >= (paddle1_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle1_pos + HALF_PAD_HEIGHT)):
+            print("I hit the left paddle")
+            print(str(ball_pos[1]))
+            print("")
             ball_vel[1] += .10
             ball_vel[0] += .10
             ball_vel[0] = - ball_vel[0]
-            
         else:
             score2 += 1
-            spawn_ball(RIGHT)           
-    else:
-        ball_pos[1] += ball_vel[1]
-        ball_pos[0] += ball_vel[0]
-        
+            spawn_ball(RIGHT)
+ 
     # collide and reflect off of right hand side of canvas
-    if (ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS):
-        if (ball_pos[1] >= (paddle2_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle2_pos + HALF_PAD_HEIGHT)):     
+
+    elif (ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS):
+        print("I hit the right side")
+        print(str(ball_pos[1]))
+        if (ball_pos[1] >= (paddle2_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle2_pos + HALF_PAD_HEIGHT)):   
+            print("I hit the right paddle")
+            print(str(ball_pos[1]))
+            print("")  
             ball_vel[1] += .10
             ball_vel[0] += .10
             ball_vel[0] = - ball_vel[0]
         else:
             score1 += 1 
             spawn_ball(LEFT)
-    else:
-        ball_pos[1] += ball_vel[1]
-        ball_pos[0] += ball_vel[0]
-            
+
+ 
+
     # collide and reflect off of top of canvas
     if ball_pos[1] <= BALL_RADIUS:
         ball_vel[1] = - ball_vel[1]
@@ -95,7 +109,6 @@ def draw(canvas):
     elif ball_pos[1] >= HEIGHT - BALL_RADIUS:
         ball_vel[1] = - ball_vel[1]
     
-
     # draw ball
     canvas.draw_circle(ball_pos, BALL_RADIUS, 2, "Red", "White")
     
