@@ -70,32 +70,44 @@ def draw(canvas):
 
     # collide and reflect off of left hand side of canvas
     if (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)):
-        print("I hit the left side")
-        print(str(ball_pos[1]))
         if (ball_pos[1] >= (paddle1_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle1_pos + HALF_PAD_HEIGHT)):
-            print("I hit the left paddle")
-            print(str(ball_pos[1]))
+            area1a = paddle1_pos - HALF_PAD_HEIGHT
+            area2a = paddle1_pos + HALF_PAD_HEIGHT
+            print("I hit the left paddle " + str(ball_pos[1]))
+            print(str(area1a) + " " + str(area2a))
             print("")
             ball_vel[0] = - ball_vel[0]
             ball_vel[1] += .10
             ball_vel[0] += .10    
         else:
+            area1a = paddle1_pos - HALF_PAD_HEIGHT
+            area2a = paddle1_pos + HALF_PAD_HEIGHT
+            print("I hit the left side " + str(ball_pos[1]))
+            print("I missed")
+            print(str(area1a) + " " + str(area2a))
+            print("")
             score2 += 1
             spawn_ball(RIGHT)
  
     # collide and reflect off of right hand side of canvas
 
     if (ball_pos[0] >= (WIDTH - PAD_WIDTH) - BALL_RADIUS):
-        print("I hit the right side")
-        print(str(ball_pos[1]))
         if (ball_pos[1] >= (paddle2_pos - HALF_PAD_HEIGHT)) and (ball_pos[1] <= (paddle2_pos + HALF_PAD_HEIGHT)):   
-            print("I hit the right paddle")
-            print(str(ball_pos[1]))
+            area1b = paddle2_pos - HALF_PAD_HEIGHT
+            area2b = paddle2_pos + HALF_PAD_HEIGHT
+            print("I hit the right paddle " + str(ball_pos[1]))
+            print(str(area1b) + " " + str(area2b))
             print("")
             ball_vel[0] = - ball_vel[0]  
             ball_vel[1] += .10
             ball_vel[0] += .10     
         else:
+            area1b = paddle2_pos - HALF_PAD_HEIGHT
+            area2b = paddle2_pos + HALF_PAD_HEIGHT
+            print("I hit the right side " + str(ball_pos[1]))
+            print("I missed")
+            print(str(area1b) + " " + str(area2b))
+            print("")
             score1 += 1 
             spawn_ball(LEFT)
 
@@ -181,3 +193,4 @@ restart = frame.add_button("Restart Game", new_game, 75)
 # start frame
 new_game()
 frame.start()
+
