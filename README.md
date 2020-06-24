@@ -20,3 +20,25 @@ Names are looked up in the narrowest relevant context.
 
 * Tuple "()" vs Lists "[]":
   * Tuple immutable
+
+Truth Table ```and```
+| Expression    | Evaluates to |
+| ------------- | ------------ |
+| True and True | True |
+| True and False | False |
+| False and True | False |
+| False and False | False |
+
+Truth Table ```or```
+| Expression | Evaluates to |
+| ---------- | ------------ |
+| True or True | True |
+| True or False | True |
+| False or True | True |
+| False or False | False |
+
+Truth Table ```not```
+| Expression | Evaluates to |
+| ---------- | ------------ |
+| not True | False |
+| not False | True |
